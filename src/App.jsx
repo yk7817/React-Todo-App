@@ -61,18 +61,12 @@ function App() {
   const sortIgnition = (e) => {
     const sortValue = e.target.value;
     setSort(sortValue);
-    if (sortValue == "タイトル順") {
-      const sortJpTodoList = todoList.sort((a, b) =>
-        a.title.localeCompare(b.title, "ja")
-      );
-      const newsortTodoList = sortJpTodoList.sort((a, b) =>
-        a.title.localeCompare(b.title)
-      );
-      setTodoList(newsortTodoList);
-    } else {
-      const sortTodoList = todoList.sort((a, b) => a.id - b.id);
-      setTodoList(sortTodoList);
-    }
+    setTodoList((prevTodoList) => {
+      const newTodoList = [...prevTodoList];
+      return sortValue === "タイトル順"
+        ? newTodoList.sort((a, b) => a.title.localeCompare(b.title, "ja"))
+        : newTodoList.sort((a, b) => a.id - b.id);
+    });
   };
 
   // コンソールログチェック
@@ -89,11 +83,7 @@ function App() {
       {/* ソート機能 */}
       <TodoSort sort={sortValue} sortIgnition={sortIgnition} />
       {/* Todoリスト */}
-      <TodoList
-        todoList={todoList}
-        todoDelete={todoDelete}
-        todoSetting={todoSetting}
-      />
+      <TodoList todoList={todoList} todoDelete={todoDelete} todoSetting={todoSetting} />
       {/* 編集画面 */}
       <SettingTodo
         todoSettingValue={todoSettingValue}
