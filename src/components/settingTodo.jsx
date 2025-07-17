@@ -7,6 +7,15 @@ const SettingTodo = (props) => {
     setSettingOptionValue,
     complateSetting,
   } = props;
+
+  const handleComplate = () => {
+    complateSetting(
+      todoSettingValue.index,
+      settingInputValue,
+      settingOptionValue
+    );
+  }
+  
   return (
     <>
       {Object.keys(todoSettingValue).length !== 0 ? (
@@ -26,13 +35,7 @@ const SettingTodo = (props) => {
             <option value="完了">完了</option>
           </select>
           <button
-            onClick={() =>
-              complateSetting(
-                todoSettingValue.index,
-                settingInputValue,
-                settingOptionValue
-              )
-            }
+            onClick={handleComplate}
           >
             反映
           </button>
